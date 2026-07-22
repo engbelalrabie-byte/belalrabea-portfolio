@@ -1349,7 +1349,7 @@ details.project-details[open] summary::after{ transform: rotate(45deg); }
         font-size: 1.6rem !important;
     }
     .manipulation-card {
-        aspect-ratio: 16 / 10;
+        aspect-ratio: 18 / 10;
     }
 }
 
@@ -1438,4 +1438,147 @@ details.project-details[open] summary::after{ transform: rotate(45deg); }
     position: relative;
     margin-top: 1rem;
   }
+}
+
+
+/* ------------------------------ Toast Notification ---------------------------------- */
+.toast {
+  visibility: hidden;
+  min-width: 240px;
+  background-color: var(--color-surface-sunken, #18181b);
+  color: #ffffff;
+  text-align: center;
+  border-radius: var(--radius-md, 8px);
+  padding: 12px 20px;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  border: 1px solid var(--color-line, rgba(255, 255, 255, 0.1));
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+
+/* التنسيق عند إظهار الرسالة */
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 35px;
+}
+.btn.btn-light-cta{
+  background: #7C8CF0;
+  color: #FFFFFF;
+  border: none;
+}
+.btn.btn-light-cta:hover{
+  background: #6B7BE8;
+}
+/* 1. إصلاح تداخل الصور والمحتوى في شاشات الموبايل */
+.manipulation-section,
+.explore-grid {
+  position: relative;
+  z-index: 1;
+  clear: both;
+}
+
+/* 2. ضبط الهيدر والعنوان لمنع تداخل النص مع الصورة التي فوقه */
+.manipulation-header {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.manipulation-tag {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* 3. ضمان تفكيك التداخل الهيكلي للبطاقات في الموبايل */
+@media (max-width: 768px) {
+  .explore-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .explore-item {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    height: auto !important;
+    margin-bottom: 1rem;
+  }
+
+  .explore-item img,
+  .manipulation-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  .manipulation-card {
+    position: relative;
+    margin-top: 1rem;
+  }
+}
+
+/* كارت الصورة الأساسي */
+.manipulation-card {
+    width: 100%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface-sunken);
+    
+    /* 🛠️ ضف هذا السطر لضمان إلغاء المسافات السفلية الدقيقة */
+    line-height: 0; 
+}
+
+.manipulation-card img {
+    width: 100%;
+    
+    /* 🛠️ أهم سطر: تأكد من أن الارتفاع تلقائي */
+    height: auto !important; 
+    
+    display: block;
+    
+    /* 🛠️ في الموبايل، نستخدم contain للحفاظ على الأبعاد كاملة */
+    object-fit: contain; 
+    
+    transition: transform var(--dur-slow) var(--ease-standard);
+    cursor: zoom-in;
+}
+
+.manipulation-card:hover img {
+    transform: scale(1.02);
+}
+
+/* 📱 ضبط خاص بالموبايل (Media Query) */
+@media (max-width: 768px) {
+    .manipulation-card {
+        /* 🛠️ إجبار الارتفاع على أن يكون تلقائيًا */
+        height: auto !important;
+        
+        /* 🛠️ إزالة أي min-height قد تكون موروثة */
+        min-height: unset !important; 
+        
+        /* 🛠️ إذا كان اللون يضايقك، اجعله شفافًا هنا */
+        background: transparent; 
+        
+        /* 🛠️ إلغاء أي padding داخلي للحاوية */
+        padding: 0 !important; 
+    }
+
+    .manipulation-card img {
+        /* 🛠️ تأكيد إضافي لأبعاد الصورة في الموبايل */
+        width: 100%;
+        height: auto !important;
+        object-fit: contain; 
+    }
 }
