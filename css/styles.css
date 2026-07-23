@@ -25,7 +25,7 @@
   --color-line: rgba(18, 20, 26, 0.12);
   --color-line-strong: rgba(18, 20, 26, 0.22);
   --color-accent: #2F5DFF;
-  --color-accent-strong: #223FCC;
+  /* --color-accent-strong: #223FCC; */
   --color-accent-tint: #E7ECFF;
   --color-led: #34C77A;
 
